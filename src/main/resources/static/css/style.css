@@ -4,15 +4,8 @@
   --input-radius: 1.5rem;
 }
 
-body {
-  background: #007bff;
-  background: linear-gradient(to right, #0062E6, #33AEFF);
-}
-
 .card-signin {
   border: 0;
-  border-radius: 1rem;
-  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 }
 
 .card-signin .card-title {
@@ -44,14 +37,14 @@ body {
 }
 
 .form-label-group input,
-.form-label-group select{
+.form-label-group select {
   height: auto;
   border-radius: var(--input-radius);
 }
 
 .form-label-group>input,
 .form-label-group>label,
-.form-label-group select{
+.form-label-group select {
   padding: var(--input-padding-y) var(--input-padding-x);
 }
 

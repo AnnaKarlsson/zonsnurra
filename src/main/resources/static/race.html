@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>TOT Zone Calculator</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/race.js"></script>
+</head>
+<body>
+<div class="card card-signin">
+  <div class="card-body">
+    <h5 class="card-title text-center"><strong>TOT Calculator</strong></h5>
+    <h5 class="card-title text-center"><small><a href="index.html">Zone</a></small> / <strong>Race</strong></h5>
+
+    <form class="form-signin">
+      <div class="form-label-group">
+        <select id="raceLength" onchange="selectDistance(this.value)" class="form-control">
+          <option disabled="disabled" selected>- Select a distance -</option>
+          <option id="raceOlympic" value="olympic">Olympic</option>
+          <option id="raceIm" value="im">Ironman</option>
+          <option id="raceHim" value="him">Half-Ironman</option>
+          <option id="raceCustom" value="custom">Custom</option>
+        </select>
+      </div>
+      <hr class="my-4">
+      <strong class="text-center">Distance</strong>
+      <div class="form-label-group">
+        <input type="number" id="swimDist" max="300" min="0" placeholder="Swim distance (km)" class="form-control"
+               onchange="calcSwim()" disabled>
+        <label for="swimDist">Swim distance (km)</label>
+      </div>
+      <div class="form-label-group">
+        <input type="number" id="bikeDist" max="300" min="0" placeholder="Bike distance (km)" class="form-control"
+               onchange="calcBike()" disabled>
+        <label for="bikeDist">Bike distance (km)</label>
+      </div>
+      <div class="form-label-group">
+        <input type="number" id="runDist" max="300" min="0" placeholder="Run distance (km)" class="form-control"
+               onchange="calcRun()" disabled>
+        <label for="runDist">Run distance (km)</label>
+      </div>
+
+      <hr class="my-4">
+      <strong class="text-center">Pace</strong>
+      <div class="row">
+        <div class="col-2">
+          Swim pace (/100m)
+        </div>
+        <div class="col form-label-group">
+          <input type="number" id="swimPaceMin" max="59" min="0" placeholder="min"
+                 onchange="calcSwim()" class="form-control" value="2">
+          <label for="swimPaceMin">min</label>
+        </div>
+        <div class="col form-label-group">
+          <input type="number" id="swimPaceSec" max="59" min="0" placeholder="sec"
+                 onchange="calcSwim()" class="form-control" value="00">
+          <label for="swimPaceSec">sec</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          Bike pace (km/h)
+        </div>
+        <div class="col form-label-group">
+          <input type="number" id="bikePace" max="300" min="0" placeholder="km/h"
+                 onchange="calcBike()" class="form-control" value="30">
+          <label for="bikePace">km/h</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          Run pace (/km)
+        </div>
+        <div class="col form-label-group">
+          <input type="number" id="runPaceMin" max="59" min="0" placeholder="min"
+                 onchange="calcRun()" class="form-control" value="6">
+          <label for="runPaceMin">min</label>
+        </div>
+        <div class="col form-label-group">
+          <input type="number" id="runPaceSec" max="59" min="0" placeholder="sec"
+                 onchange="calcRun()" class="form-control" value="00">
+          <label for="runPaceSec">sec</label>
+        </div>
+      </div>
+
+      <hr class="my-4">
+
+      <strong class="text-center">Finish</strong>
+      <div class="form-label-group">
+        <input type="text" id="res" placeholder="Run time (hh:mm:ss)" class="form-control" disabled>
+        <label for="res">Total time (hh:mm:ss)</label>
+      </div>
+      <hr class="my-4">
+      <div class="form-label-group">
+        <input type="text" id="swimRes" placeholder="Swim time (hh:mm:ss)" class="form-control" disabled>
+        <label for="swimRes">Swim time (hh:mm:ss)</label>
+      </div>
+      <div class="row">
+        <div class="col form-label-group">
+          <input type="number" id="t1Min" max="59" min="0" placeholder="T1 min"
+                 onchange="calcT1()" class="form-control" value="0" disabled>
+          <label for="t1Min">T1 min</label>
+        </div>
+        <div class="col form-label-group">
+          <input type="number" id="t1Sec" max="59" min="0" placeholder="T1 sec"
+                 onchange="calcT1()" class="form-control" value="00" disabled>
+          <label for="t1Sec">T1 sec</label>
+        </div>
+      </div>
+      <div class="form-label-group">
+        <input type="text" id="bikeRes" placeholder="Bike time (hh:mm:ss)" class="form-control" disabled>
+        <label for="bikeRes">Bike time (hh:mm:ss)</label>
+      </div>
+      <div class="row">
+        <div class="col form-label-group">
+          <input type="number" id="t2Min" max="59" min="0" placeholder="T2 min"
+                 onchange="calcT2()" class="form-control" value="0" disabled>
+          <label for="t2Min">T2 min</label>
+        </div>
+        <div class="col form-label-group">
+          <input type="number" id="t2Sec" max="59" min="0" placeholder="T2 sec"
+                 onchange="calcT2()" class="form-control" value="00" disabled>
+          <label for="t2Sec">T2 sec</label>
+        </div>
+      </div>
+      <div class="form-label-group">
+        <input type="text" id="runRes" placeholder="Run time (hh:mm:ss)" class="form-control" disabled>
+        <label for="runRes">Run time (hh:mm:ss)</label>
+      </div>
+    </form>
+  </div>
+</div>
+</body>
+</html>
