@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Zonsnurra</title>
+  <title>TOT Zone Calculator</title>
   <meta charset="utf-8">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+          integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script>
 
     function displaySport(answer) {
-      document.getElementById('swimBlock').style.display = "none";
       document.getElementById('bikeBlock').style.display = "none";
       document.getElementById('runBlock').style.display = "none";
 
       if (answer == "swim") {
-        document.getElementById('swimBlock').style.display = "block";
         displayMeasure("time");
       } else if (answer == "bike") {
         document.getElementById('bikeBlock').style.display = "block";
@@ -25,6 +29,7 @@
     }
 
     function displayMeasure(answer) {
+      document.getElementById("result").innerHTML = "";
       document.getElementById('timeBlock').style.display = "none";
       document.getElementById('pulseBlock').style.display = "none";
       document.getElementById('wattBlock').style.display = "none";
@@ -41,15 +46,17 @@
     function send(type, measure) {
       var sport = document.getElementById('sport').value;
       var url = "/" + sport + "/" + type + "/" + measure;
-      console.log("URL: " + url);
 
       $.getJSON(url, function (data) {
         var items = [];
         $.each(data, function (key, val) {
-          items.push("<li id='" + key + "'>" + key + ": " + val + "</li>");
+          items.push("<div class='row justify-content-center'>" +
+            "<div class='col-2'>" + key + "</div>" +
+            "<div class='col-2'>" + val + "</div>" +
+            "</div>");
         });
 
-        document.getElementById("result").innerHTML = "<ul>"+items.join("") + "</ul>";
+        document.getElementById("result").innerHTML = items.join("");
       });
     }
 
@@ -69,59 +76,88 @@
   </script>
 </head>
 <body>
+<div class="card card-signin">
+  <div class="card-body">
+    <h5 class="card-title text-center">TOT Zone Calculator</h5>
+    <form class="form-signin">
+      <!--            <div class="form-label-group">-->
+      <!--              <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus disabled>-->
+      <!--              <label for="inputEmail">Email address</label>-->
+      <!--            </div>-->
 
-<form>
-  <label for="sport">Sport</label>
-  <select id="sport" onchange="displaySport(this.value)">
-    <option id="swim" value="swim">Swim</option>
-    <option id="bike" value="bike">Bike</option>
-    <option id="run" value="run">Run</option>
-  </select>
-  <br/>
-  <div id="swimBlock" style="display:block;">
+      <div class="form-label-group">
+        <select id="sport" onchange="displaySport(this.value)" class="form-control">
+          <option id="swim" value="swim">Swim</option>
+          <option id="bike" value="bike">Bike</option>
+          <option id="run" value="run">Run</option>
+        </select>
+      </div>
 
+      <div id="bikeBlock" style="display:none;" class="form-group">
+        <div class="custom-control custom-radio">
+          <input type="radio" id="radio-bike-watt" name="radio-bike" value="watt"
+                 onchange="displayMeasure(this.value)" class="custom-control-input">
+          <label for="radio-bike-watt" class="custom-control-label">Watt</label>
+        </div>
+
+        <div class="custom-control custom-radio">
+          <input type="radio" id="radio-bike-pulse" name="radio-bike" value="pulse"
+                 onchange="displayMeasure(this.value)" class="custom-control-input">
+          <label for="radio-bike-watt" class="custom-control-label">Pulse</label>
+        </div>
+      </div>
+
+      <div id="runBlock" style="display:none;" class="form-group">
+        <div class="custom-control custom-radio">
+          <input type="radio" id="radio-run-time" name="radio-run" value="time"
+                 onchange="displayMeasure(this.value)" class="custom-control-input">
+          <label for="radio-run-time" class="custom-control-label">Time</label>
+        </div>
+        <div class="custom-control custom-radio">
+          <input type="radio" id="radio-run-pulse" name="radio-run" value="pulse"
+                 onchange="displayMeasure(this.value)" class="custom-control-input">
+          <label for="radio-run-pulse" class="custom-control-label">Pulse</label>
+        </div>
+      </div>
+
+      <div id="wattBlock" style="display:none;">
+        <div class="form-label-group">
+          <input type="number" id="watt" max="600" min="50" placeholder="Wastt" class="form-control">
+          <label for="watt">Watt</label>
+        </div>
+        <input type="button" value="GO" onclick="submitWatt()"
+               class="btn btn-lg btn-primary btn-block text-uppercase">
+      </div>
+
+
+      <div id="pulseBlock" style="display:none;">
+        <div class="form-label-group">
+          <input type="number" id="pulse" max="300" min="0" placeholder="Pulse" class="form-control">
+          <label for="pulse">Pulse</label>
+        </div>
+        <input type="button" value="GO" onclick="submitPulse()"
+               class="btn btn-lg btn-primary btn-block text-uppercase">
+      </div>
+
+      <div id="timeBlock" style="display:block;">
+        <div class="form-label-group">
+          <input type="number" id="min" min="1" max="15" placeholder="min" class="form-control">
+          <label for="min">min</label>
+        </div>
+        <div class="form-label-group">
+          <input type="number" id="sec" min="0" max="60" placeholder="sec" class="form-control">
+          <label for="sec">sec</label>
+        </div>
+        <input type="button" value="GO" onclick="submitTime()"
+               class="btn btn-lg btn-primary btn-block text-uppercase">
+      </div>
+
+      <hr class="my-4">
+
+      <div id="result">
+      </div>
+    </form>
   </div>
-
-  <div id="bikeBlock" style="display:none;"><br/>
-    <label for="radio-bike-watt">Watt</label>
-    <input type="radio" id="radio-bike-watt" name="radio-bike" value="watt" onchange="displayMeasure(this.value)">
-
-    <label for="radio-bike-watt">Pulse</label>
-    <input type="radio" id="radio-bike-pulse" name="radio-bike" value="pulse" onchange="displayMeasure(this.value)">
-  </div>
-
-  <div id="runBlock" style="display:none;"><br/>
-    <label for="radio-run-time">Time</label>
-    <input type="radio" id="radio-run-time" name="radio-run" value="time" onchange="displayMeasure(this.value)">
-
-    <label for="radio-run-pulse">Pulse</label>
-    <input type="radio" id="radio-run-pulse" name="radio-run" value="pulse" onchange="displayMeasure(this.value)">
-  </div>
-
-  <div id="timeBlock" style="display:block;">
-    <label for="min">Time (min:sec):</label>
-    <input type="number" id="min" min="1" max="15">:
-    <input type="number" id="sec" min="0" max="60">
-    <br/>
-    <input type="button" value="GO" onclick="submitTime()">
-  </div>
-  <div id="pulseBlock" style="display:none;">
-    <label for="pulse">Pulse</label>
-    <input type="number" id="pulse" max="300" min="0">
-    <br/>
-    <input type="button" value="GO" onclick="submitPulse()">
-  </div>
-  <div id="wattBlock" style="display:none;">
-    <label for="watt">Watt</label>
-    <input type="number" id="watt" max="600" min="50">
-    <br/>
-    <input type="button" value="GO" onclick="submitWatt()">
-  </div>
-</form>
-
-<hr>
-<div id="result">
-
 </div>
 </body>
 </html>
