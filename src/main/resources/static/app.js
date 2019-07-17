@@ -1,8 +1,10 @@
 function displaySport(answer) {
+  document.getElementById('swimBlock').style.display = "none";
   document.getElementById('bikeBlock').style.display = "none";
   document.getElementById('runBlock').style.display = "none";
 
   if (answer == "swim") {
+    document.getElementById('swimBlock').style.display = "block";
     displayMeasure("time");
   } else if (answer == "bike") {
     document.getElementById('bikeBlock').style.display = "block";
@@ -19,11 +21,11 @@ function displayMeasure(answer) {
   document.getElementById('pulseBlock').style.display = "none";
   document.getElementById('wattBlock').style.display = "none";
 
-  if (answer == "time") {
+  if (answer === "time") {
     document.getElementById('timeBlock').style.display = "block";
-  } else if (answer == "pulse") {
+  } else if (answer === "pulse") {
     document.getElementById('pulseBlock').style.display = "block";
-  } else if (answer == "watt") {
+  } else if (answer === "watt") {
     document.getElementById('wattBlock').style.display = "block";
   }
 }

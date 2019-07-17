@@ -11,88 +11,102 @@
   <script src="app.js"></script>
 </head>
 <body>
-<div class="card card-signin">
-  <div class="card-body">
-    <h5 class="card-title text-center"><strong>TOT Calculator</strong></h5>
-    <h5 class="card-title text-center"><strong>Zone</strong> / <small><a href="race.html">Race</a></small></h5>
-    <form class="form-signin">
-      <!--            <div class="form-label-group">-->
-      <!--              <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus disabled>-->
-      <!--              <label for="inputEmail">Email address</label>-->
-      <!--            </div>-->
-
-      <div class="form-label-group">
-        <select id="sport" onchange="displaySport(this.value)" class="form-control">
-          <option id="swim" value="swim">Swim</option>
-          <option id="bike" value="bike">Bike</option>
-          <option id="run" value="run">Run</option>
-        </select>
-      </div>
-
-      <div id="bikeBlock" style="display:none;" class="form-group">
-        <div class="custom-control custom-radio">
-          <input type="radio" id="radio-bike-watt" name="radio-bike" value="watt"
-                 onchange="displayMeasure(this.value)" class="custom-control-input">
-          <label for="radio-bike-watt" class="custom-control-label">Watt</label>
-        </div>
-
-        <div class="custom-control custom-radio">
-          <input type="radio" id="radio-bike-pulse" name="radio-bike" value="pulse"
-                 onchange="displayMeasure(this.value)" class="custom-control-input">
-          <label for="radio-bike-watt" class="custom-control-label">Pulse</label>
-        </div>
-      </div>
-
-      <div id="runBlock" style="display:none;" class="form-group">
-        <div class="custom-control custom-radio">
-          <input type="radio" id="radio-run-time" name="radio-run" value="time"
-                 onchange="displayMeasure(this.value)" class="custom-control-input">
-          <label for="radio-run-time" class="custom-control-label">Time</label>
-        </div>
-        <div class="custom-control custom-radio">
-          <input type="radio" id="radio-run-pulse" name="radio-run" value="pulse"
-                 onchange="displayMeasure(this.value)" class="custom-control-input">
-          <label for="radio-run-pulse" class="custom-control-label">Pulse</label>
-        </div>
-      </div>
-
-      <div id="wattBlock" style="display:none;">
-        <div class="form-label-group">
-          <input type="number" id="watt" max="600" min="50" placeholder="Wastt" class="form-control">
-          <label for="watt">Watt</label>
-        </div>
-        <input type="button" value="GO" onclick="submitWatt()"
-               class="btn btn-lg btn-primary btn-block text-uppercase">
-      </div>
-
-
-      <div id="pulseBlock" style="display:none;">
-        <div class="form-label-group">
-          <input type="number" id="pulse" max="300" min="0" placeholder="Pulse" class="form-control">
-          <label for="pulse">Pulse</label>
-        </div>
-        <input type="button" value="GO" onclick="submitPulse()"
-               class="btn btn-lg btn-primary btn-block text-uppercase">
-      </div>
-
-      <div id="timeBlock" style="display:block;">
-        <div class="form-label-group">
-          <input type="number" id="min" min="1" max="15" placeholder="min" class="form-control">
-          <label for="min">min</label>
-        </div>
-        <div class="form-label-group">
-          <input type="number" id="sec" min="0" max="60" placeholder="sec" class="form-control">
-          <label for="sec">sec</label>
-        </div>
-        <input type="button" value="GO" onclick="submitTime()"
-               class="btn btn-lg btn-primary btn-block text-uppercase">
-      </div>
-
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <h1 class="text-center">TOT Calculator</h1>
+      <ul class="nav justify-content-center">
+        <li class="nav-item"><a class="nav-link disabled" href="index.html">Zone</a></li>
+        <li class="nav-item"><a class="nav-link disabled" href="#">/</a></li>
+        <li class="nav-item"><a class="nav-link" href="race.html">Race</a></li>
+      </ul>
       <hr class="my-4">
 
-      <div id="result">
-      </div>
-    </form>
+      <form class="form-signin">
+        <!--            <div class="form-label-group">-->
+        <!--              <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus disabled>-->
+        <!--              <label for="inputEmail">Email address</label>-->
+        <!--            </div>-->
+
+        <div class="form-label-group">
+          <select id="sport" onchange="displaySport(this.value)" class="form-control">
+            <option id="swim" value="swim">Swim</option>
+            <option id="bike" value="bike">Bike</option>
+            <option id="run" value="run">Run</option>
+          </select>
+        </div>
+
+        <div id="swimBlock">
+          Time (/100m)
+        </div>
+
+        <div id="bikeBlock" style="display:none;" class="form-group bike">
+          <div class="custom-control custom-radio">
+            <input type="radio" id="radio-bike-watt" name="radio-bike" value="watt"
+                   onchange="displayMeasure(this.value)" class="custom-control-input">
+            <label for="radio-bike-watt" class="custom-control-label">Watt</label>
+          </div>
+
+          <div class="custom-control custom-radio">
+            <input type="radio" id="radio-bike-pulse" name="radio-bike" value="pulse"
+                   onchange="displayMeasure(this.value)" class="custom-control-input">
+            <label for="radio-bike-watt" class="custom-control-label">Pulse</label>
+          </div>
+        </div>
+
+        <div id="runBlock" style="display:none;" class="form-group">
+          <div class="custom-control custom-radio">
+            <input type="radio" id="radio-run-time" name="radio-run" value="time"
+                   onchange="displayMeasure(this.value)" class="custom-control-input">
+            <label for="radio-run-time" class="custom-control-label">Time (min/km)</label>
+          </div>
+          <div class="custom-control custom-radio">
+            <input type="radio" id="radio-run-pulse" name="radio-run" value="pulse"
+                   onchange="displayMeasure(this.value)" class="custom-control-input">
+            <label for="radio-run-pulse" class="custom-control-label">Pulse</label>
+          </div>
+        </div>
+
+        <div id="wattBlock" style="display:none;">
+          <div class="form-label-group">
+            <input type="number" id="watt" max="600" min="50" placeholder="Wastt" class="form-control">
+            <label for="watt">Watt</label>
+          </div>
+          <input type="button" value="GO" onclick="submitWatt()"
+                 class="btn btn-lg btn-primary btn-block text-uppercase">
+        </div>
+
+
+        <div id="pulseBlock" style="display:none;">
+          <div class="form-label-group">
+            <input type="number" id="pulse" max="300" min="0" placeholder="Pulse" class="form-control">
+            <label for="pulse">Pulse</label>
+          </div>
+          <input type="button" value="GO" onclick="submitPulse()"
+                 class="btn btn-lg btn-primary btn-block text-uppercase">
+        </div>
+
+        <div id="timeBlock" style="display:block;">
+          <div class="row">
+            <div class="form-label-group col">
+              <input type="number" id="min" min="1" max="15" placeholder="min" class="form-control">
+              <label for="min">min</label>
+            </div>
+            <div class="form-label-group col">
+              <input type="number" id="sec" min="0" max="60" placeholder="sec" class="form-control">
+              <label for="sec">sec</label>
+            </div>
+          </div>
+          <input type="button" value="GO" onclick="submitTime()"
+                 class="btn btn-lg btn-primary btn-block text-uppercase">
+        </div>
+
+        <hr class="my-4">
+
+        <div id="result">
+        </div>
+      </form>
+    </div>
   </div>
 </div>
 </body>
