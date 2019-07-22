@@ -16,7 +16,8 @@ public class BikeWattCalculator extends ZoneCalculator<Watt> {
       PercentRange.of(75, 89),
       PercentRange.of(90, 104),
       PercentRange.of(105, 120),
-      PercentRange.of(120, 200));
+      PercentRange.of(120, 200),
+      PercentRange.SWEET_SPOT);
 
   @Override
   protected Range<Watt> calcRange(final Watt measure, final int zoneNbr) {

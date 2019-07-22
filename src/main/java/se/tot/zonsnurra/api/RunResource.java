@@ -1,10 +1,10 @@
 package se.tot.zonsnurra.api;
 
 import org.springframework.web.bind.annotation.PathVariable;
-import se.tot.zonsnurra.domain.*;
-
-import java.util.List;
-import java.util.Map;
+import se.tot.zonsnurra.domain.Pulse;
+import se.tot.zonsnurra.domain.RunningPulseCalculator;
+import se.tot.zonsnurra.domain.RunningTimeCalculator;
+import se.tot.zonsnurra.domain.Seconds;
 
 import static se.tot.zonsnurra.api.ApiUtil.collectToResponse;
 
@@ -24,7 +24,7 @@ public class RunResource {
 
 
   @GetJSON("/time/{minutes}/{seconds}")
-  public Map<String, Object> time(
+  public ZoneResponse time(
       @PathVariable final Integer minutes,
       @PathVariable final Integer seconds
   ) {
@@ -32,7 +32,7 @@ public class RunResource {
   }
 
   @GetJSON("/pulse/{pulse}")
-  public Map<String, Object> pulse(@PathVariable final Integer pulse) {
+  public ZoneResponse pulse(@PathVariable final Integer pulse) {
     return collectToResponse(runningPulseCalculator.calc(Pulse.of(pulse)));
   }
 

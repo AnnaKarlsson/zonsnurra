@@ -1,10 +1,8 @@
 package se.tot.zonsnurra.api;
 
 import org.springframework.web.bind.annotation.PathVariable;
-import se.tot.zonsnurra.domain.*;
-
-import java.util.List;
-import java.util.Map;
+import se.tot.zonsnurra.domain.Seconds;
+import se.tot.zonsnurra.domain.SwimCalculator;
 
 import static se.tot.zonsnurra.api.ApiUtil.collectToResponse;
 
@@ -19,7 +17,7 @@ public class SwimResource {
 
 
   @GetJSON("/time/{minutes}/{seconds}")
-  public Map<String, Object> time(
+  public ZoneResponse time(
       @PathVariable final Integer minutes,
       @PathVariable final Integer seconds
   ) {

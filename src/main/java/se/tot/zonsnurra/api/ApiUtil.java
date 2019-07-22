@@ -3,16 +3,28 @@ package se.tot.zonsnurra.api;
 import se.tot.zonsnurra.domain.TestMeasure;
 import se.tot.zonsnurra.domain.ZoneResult;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 class ApiUtil {
 
-  static Map<String,Object> collectToResponse(final ZoneResult<? extends TestMeasure> result) {
-    return IntStream.rangeClosed(1, 6)
-        .mapToObj(zone -> Map.entry("Zone " + zone , result.get(zone).jsonValue()))
-        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+  static ZoneResponse collectToResponse(final ZoneResult<? extends TestMeasure> zoneResult) {
+    final Map<String, Object> result = new HashMap<>();
+
+    zoneResult.streamZones()
+        .forEach(j -> result.put("Zone " + j.getKey(), j.getValue()));
+
+    result.put("Sweet spot", zoneResult.sweetSpot().jsonValue());
+    return new ZoneResponse(
+        zoneResult.get(1).jsonValue(),
+        zoneResult.get(2).jsonValue(),
+        zoneResult.get(3).jsonValue(),
+        zoneResult.get(4).jsonValue(),
+        zoneResult.get(5).jsonValue(),
+        zoneResult.get(6).jsonValue(),
+        zoneResult.sweetSpot().jsonValue()
+
+    );
   }
 }

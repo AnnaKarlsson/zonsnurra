@@ -48,5 +48,4 @@ public class Range<T extends TestMeasure> {
   public String jsonValue() {
     return low.jsonValue() + " - " + high.jsonValue();
   }
-
 }

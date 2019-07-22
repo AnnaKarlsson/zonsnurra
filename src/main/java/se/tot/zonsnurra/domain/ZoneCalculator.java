@@ -9,7 +9,8 @@ public abstract class ZoneCalculator<T extends TestMeasure> {
         calcRange(measure, 3),
         calcRange(measure, 4),
         calcRange(measure, 5),
-        calcRange(measure, 6));
+        calcRange(measure, 6),
+        calcRange(measure, 7));
   }
 
   protected abstract Range<T> calcRange(final T measure, final int zoneNbr);

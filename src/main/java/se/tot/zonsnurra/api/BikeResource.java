@@ -1,10 +1,10 @@
 package se.tot.zonsnurra.api;
 
 import org.springframework.web.bind.annotation.PathVariable;
-import se.tot.zonsnurra.domain.*;
-
-import java.util.List;
-import java.util.Map;
+import se.tot.zonsnurra.domain.BikePulseCalculator;
+import se.tot.zonsnurra.domain.BikeWattCalculator;
+import se.tot.zonsnurra.domain.Pulse;
+import se.tot.zonsnurra.domain.Watt;
 
 import static se.tot.zonsnurra.api.ApiUtil.collectToResponse;
 
@@ -24,12 +24,12 @@ public class BikeResource {
 
 
   @GetJSON("/watt/{watt}")
-  public Map<String, Object> watt(@PathVariable final Integer watt) {
+  public ZoneResponse watt(@PathVariable final Integer watt) {
     return collectToResponse(bikeWattCalculator.calc(Watt.of(watt)));
   }
 
   @GetJSON("/pulse/{pulse}")
-  public Map<String, Object> pulse(@PathVariable final Integer pulse) {
+  public ZoneResponse pulse(@PathVariable final Integer pulse) {
     return collectToResponse(bikePulseCalculator.calc(Pulse.of(pulse)));
   }
 

@@ -16,7 +16,8 @@ public class BikePulseCalculator extends ZoneCalculator<Pulse> {
       PercentRange.of(90, 93),
       PercentRange.of(94, 99),
       PercentRange.of(100, 102),
-      PercentRange.of(103, 106));
+      PercentRange.of(103, 106),
+      PercentRange.SWEET_SPOT);
 
   @Override
   protected Range<Pulse> calcRange(final Pulse measure, final int zoneNbr) {

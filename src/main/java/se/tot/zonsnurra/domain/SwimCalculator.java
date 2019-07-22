@@ -16,7 +16,8 @@ public class SwimCalculator extends ZoneCalculator<Seconds> {
       PercentRange.of(106, 113),
       PercentRange.of(101, 105),
       PercentRange.of(97, 100),
-      PercentRange.of(90, 96));
+      PercentRange.of(90, 96),
+      PercentRange.SWEET_SPOT);
 
   @Override
   protected Range<Seconds> calcRange(final Seconds measure, final int zoneNbr) {
