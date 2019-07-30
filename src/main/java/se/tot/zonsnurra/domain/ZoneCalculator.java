@@ -1,19 +1,24 @@
 package se.tot.zonsnurra.domain;
 
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toList;
+
 public abstract class ZoneCalculator<T extends TestMeasure> {
 
   public ZoneResult<T> calc(final T measure) {
-    return ZoneResult.of(
-        calcRange(measure, 1),
-        calcRange(measure, 2),
-        calcRange(measure, 3),
-        calcRange(measure, 4),
-        calcRange(measure, 5),
-        calcRange(measure, 6),
-        calcRange(measure, 7));
+    final List<Range<T>> zones = percentRangeStream()
+        .map(pr -> pr.toRange(calcRange(measure)))
+        .collect(toList());
+
+    final Range<T> sweetSpot = PercentRange.SWEET_SPOT.toRange(calcRange(measure));
+    return ZoneResult.of(zones, sweetSpot);
   }
 
-  protected abstract Range<T> calcRange(final T measure, final int zoneNbr);
+  protected abstract Function<Percent, T> calcRange(final T measure);
 
-  protected abstract boolean handle(final Sport sport);
+  protected abstract Stream<PercentRange> percentRangeStream();
+
 }

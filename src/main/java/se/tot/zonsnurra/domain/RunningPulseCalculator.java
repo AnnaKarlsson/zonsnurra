@@ -2,10 +2,10 @@ package se.tot.zonsnurra.domain;
 
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
 @Component
 public class RunningPulseCalculator extends ZoneCalculator<Pulse> {
@@ -16,21 +16,19 @@ public class RunningPulseCalculator extends ZoneCalculator<Pulse> {
       PercentRange.of(90, 94),
       PercentRange.of(95, 99),
       PercentRange.of(100, 102),
-      PercentRange.of(103, 106),
-      PercentRange.SWEET_SPOT);
+      PercentRange.of(103, 106));
 
   @Override
-  protected Range<Pulse> calcRange(final Pulse measure, final int zoneNbr) {
-    final BigDecimal pulseOf95percent = Percent.of(95).calc(measure);
-    return PERCENT_OF_PULSE.get(zoneNbr - 1).toRange(p -> {
-      BigDecimal resultInDecimals = p.multiply(pulseOf95percent);
-      Integer resultRounded = resultInDecimals.setScale(0, RoundingMode.HALF_UP).intValue();
-      return Pulse.of(resultRounded);
-    });
+  protected Function<Percent, Pulse> calcRange(final Pulse measure) {
+    return p -> Pulse.of(calc(measure, p));
+  }
+
+  private static int calc(final Pulse measure, final Percent p) {
+    return p.multiplyAndRoundToInt(Percent.PERCENT_95.calc(measure));
   }
 
   @Override
-  protected boolean handle(final Sport sport) {
-    return Sport.RUNNING == sport;
+  protected Stream<PercentRange> percentRangeStream() {
+    return PERCENT_OF_PULSE.stream();
   }
 }

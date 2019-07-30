@@ -2,10 +2,10 @@ package se.tot.zonsnurra.domain;
 
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
 @Component
 public class SwimCalculator extends ZoneCalculator<Seconds> {
@@ -16,20 +16,20 @@ public class SwimCalculator extends ZoneCalculator<Seconds> {
       PercentRange.of(106, 113),
       PercentRange.of(101, 105),
       PercentRange.of(97, 100),
-      PercentRange.of(90, 96),
-      PercentRange.SWEET_SPOT);
+      PercentRange.of(90, 96));
 
   @Override
-  protected Range<Seconds> calcRange(final Seconds measure, final int zoneNbr) {
-    return PERCENT_OF_TIME.get(zoneNbr-1).toRange(p -> {
-      BigDecimal resultInSecondAndDecimals = p.multiply(measure.toBigDecimal());
-      Long resultInSeconds = resultInSecondAndDecimals.setScale(0, RoundingMode.HALF_UP).longValueExact();
-      return Seconds.ofSeconds(resultInSeconds);
-    });
+  protected Function<Percent, Seconds> calcRange(final Seconds measure) {
+    return p -> Seconds.ofSeconds(calc(measure, p));
+  }
+
+  private static long calc(final Seconds measure, final Percent p) {
+    return p.multiplyAndRoundToLong(measure.toBigDecimal());
   }
 
   @Override
-  protected boolean handle(final Sport sport) {
-    return Sport.SWIMMING == sport;
+  protected Stream<PercentRange> percentRangeStream() {
+    return PERCENT_OF_TIME.stream();
   }
+
 }

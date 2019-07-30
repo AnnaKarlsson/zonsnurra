@@ -6,6 +6,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
 @Component
 public class BikePulseCalculator extends ZoneCalculator<Pulse> {
@@ -16,21 +18,21 @@ public class BikePulseCalculator extends ZoneCalculator<Pulse> {
       PercentRange.of(90, 93),
       PercentRange.of(94, 99),
       PercentRange.of(100, 102),
-      PercentRange.of(103, 106),
-      PercentRange.SWEET_SPOT);
+      PercentRange.of(103, 106));
 
   @Override
-  protected Range<Pulse> calcRange(final Pulse measure, final int zoneNbr) {
-    final BigDecimal pulseOf95percent = Percent.of(95).calc(measure);
-    return PERCENT_OF_PULSE.get(zoneNbr - 1).toRange(p -> {
+  protected Function<Percent, Pulse> calcRange(final Pulse measure) {
+    return p -> {
+      final BigDecimal pulseOf95percent = Percent.of(95).calc(measure);
       BigDecimal resultInDecimals = p.multiply(pulseOf95percent);
       Integer resultRounded = resultInDecimals.setScale(0, RoundingMode.HALF_UP).intValue();
       return Pulse.of(resultRounded);
-    });
+    };
   }
 
   @Override
-  protected boolean handle(final Sport sport) {
-    return Sport.BIKE == sport;
+  protected Stream<PercentRange> percentRangeStream() {
+    return PERCENT_OF_PULSE.stream();
   }
+
 }

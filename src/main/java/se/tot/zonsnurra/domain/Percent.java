@@ -1,10 +1,14 @@
 package se.tot.zonsnurra.domain;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class Percent extends TestMeasure<Percent> {
 
   public static final Percent ZERO = new Percent(0);
+  public static final Percent PERCENT_95 = of(95);
+  public static final Percent PERCENT_105 = of(105);
+
   private final Integer value;
 
   private Percent(final Integer value) {
@@ -35,6 +39,18 @@ public class Percent extends TestMeasure<Percent> {
 
   public BigDecimal multiply(final BigDecimal number) {
     return toBigDecimal().multiply(number);
+  }
+
+  public long multiplyAndRoundToLong(final BigDecimal number) {
+    return toBigDecimal().multiply(number)
+        .setScale(0, RoundingMode.HALF_UP)
+        .longValueExact();
+  }
+
+  public int multiplyAndRoundToInt(final BigDecimal number) {
+    return toBigDecimal().multiply(number)
+        .setScale(0, RoundingMode.HALF_UP)
+        .intValueExact();
   }
 
   private float percent() {

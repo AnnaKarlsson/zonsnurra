@@ -2,10 +2,12 @@ package se.tot.zonsnurra.domain;
 
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Stream;
+
+import static se.tot.zonsnurra.domain.Percent.PERCENT_95;
 
 @Component
 public class BikeWattCalculator extends ZoneCalculator<Watt> {
@@ -16,20 +18,19 @@ public class BikeWattCalculator extends ZoneCalculator<Watt> {
       PercentRange.of(75, 89),
       PercentRange.of(90, 104),
       PercentRange.of(105, 120),
-      PercentRange.of(120, 200),
-      PercentRange.SWEET_SPOT);
+      PercentRange.of(120, 200));
 
   @Override
-  protected Range<Watt> calcRange(final Watt measure, final int zoneNbr) {
-    final BigDecimal measure95percent = Percent.of(95).calc(measure);
-    return PERCENT_RANGES.get(zoneNbr-1).toRange(p -> {
-      final int result = p.multiply(measure95percent).setScale(0, RoundingMode.HALF_UP).intValueExact();
-      return Watt.of(result);
-    });
+  protected Function<Percent, Watt> calcRange(final Watt measure) {
+    return p -> Watt.of(calc(measure, p));
+  }
+
+  private static int calc(final Watt measure, final Percent p) {
+    return p.multiplyAndRoundToInt(PERCENT_95.calc(measure));
   }
 
   @Override
-  protected boolean handle(final Sport sport) {
-    return Sport.BIKE == sport;
+  protected Stream<PercentRange> percentRangeStream() {
+    return PERCENT_RANGES.stream();
   }
 }

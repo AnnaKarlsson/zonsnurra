@@ -1,33 +1,23 @@
 package se.tot.zonsnurra.domain;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 import static java.util.Objects.requireNonNull;
 
 public class ZoneResult<T extends TestMeasure> {
 
-  private final List<Range<T>> zones;
+  private final List<Range<T>> zones; //TODO make obj that only allows 6 zones
   private final Range<T> sweetSpot;
 
-  private ZoneResult(
-      final Range<T> h1, final Range<T> h2, final Range<T> h3,
-      final Range<T> h4, final Range<T> h5, final Range<T> h6,
-      final Range<T> sweetSpot
-  ) {
-    this.zones = Arrays.asList(h1, h2, h3, h4, h5, h6);
+  private ZoneResult(final List<Range<T>> zones, final Range<T> sweetSpot) {
+    this.zones = requireNonNull(zones);
     this.sweetSpot = requireNonNull(sweetSpot);
   }
 
-  public static <T extends TestMeasure> ZoneResult<T> of(
-      final Range<T> range1, final Range<T> range2, final Range<T> range3,
-      final Range<T> range4, final Range<T> range5, final Range<T> range6, final Range<T> sweetSpot
+  public static <T extends TestMeasure> ZoneResult<T> of(final List<Range<T>> zones, final Range<T> sweetSpot
   ) {
-    return new ZoneResult<>(range1, range2, range3, range4, range5, range6, sweetSpot);
+    return new ZoneResult<>(zones, sweetSpot);
   }
 
   public Integer nbrOfZones() {
@@ -42,11 +32,6 @@ public class ZoneResult<T extends TestMeasure> {
     throw new IllegalArgumentException("Number of zones is " + nbrOfZones() + ", due to cannot get zone " + zoneNbr);
   }
 
-  public Stream<Map.Entry<Integer,Range<T>>> streamZones(){
-    return IntStream.rangeClosed(1, 6)
-        .mapToObj(i -> Map.entry(i,get(i)));
-  }
-
   @Override
   public boolean equals(final Object o) {
     if (this == o) {
@@ -55,18 +40,19 @@ public class ZoneResult<T extends TestMeasure> {
     if (!(o instanceof ZoneResult)) {
       return false;
     }
-    final ZoneResult that = (ZoneResult) o;
-    return Objects.equals(zones, that.zones);
+    final ZoneResult<?> that = (ZoneResult<?>) o;
+    return Objects.equals(zones, that.zones) &&
+        Objects.equals(sweetSpot, that.sweetSpot);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(zones);
+    return Objects.hash(zones, sweetSpot);
   }
 
   @Override
   public String toString() {
-    return "ZoneResult " + zones;
+    return "ZoneResult " + zones + " (sweet spot " + sweetSpot + ")";
   }
 
   public Range<T> sweetSpot() {

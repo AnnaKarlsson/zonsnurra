@@ -10,12 +10,6 @@ import java.util.Map;
 class ApiUtil {
 
   static ZoneResponse collectToResponse(final ZoneResult<? extends TestMeasure> zoneResult) {
-    final Map<String, Object> result = new HashMap<>();
-
-    zoneResult.streamZones()
-        .forEach(j -> result.put("Zone " + j.getKey(), j.getValue()));
-
-    result.put("Sweet spot", zoneResult.sweetSpot().jsonValue());
     return new ZoneResponse(
         zoneResult.get(1).jsonValue(),
         zoneResult.get(2).jsonValue(),
