@@ -3,11 +3,9 @@ package se.tot.zonsnurra.api;
 import se.tot.zonsnurra.domain.TestMeasure;
 import se.tot.zonsnurra.domain.ZoneResult;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 class ApiUtil {
+
+  private ApiUtil(){}
 
   static ZoneResponse collectToResponse(final ZoneResult<? extends TestMeasure> zoneResult) {
     return new ZoneResponse(
