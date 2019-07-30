@@ -14,7 +14,7 @@ public abstract class ZoneCalculator<T extends TestMeasure> {
         .collect(toList());
 
     final Range<T> sweetSpot = PercentRange.SWEET_SPOT.toRange(calcRange(measure));
-    return ZoneResult.of(zones, sweetSpot);
+    return ZoneResult.of6ZonesWith(zones, sweetSpot);
   }
 
   protected abstract Function<Percent, T> calcRange(final T measure);

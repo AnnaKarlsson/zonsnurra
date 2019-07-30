@@ -29,7 +29,7 @@ public class Percent extends TestMeasure<Percent> {
 
   @Override
   public BigDecimal toBigDecimal() {
-    return new BigDecimal(percent());
+    return BigDecimal.valueOf(percent());
   }
 
   @Override

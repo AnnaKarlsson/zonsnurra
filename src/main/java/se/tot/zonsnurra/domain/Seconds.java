@@ -8,7 +8,6 @@ import static java.util.Objects.requireNonNull;
 
 public class Seconds extends TestMeasure<Seconds> {
 
-  public static final Seconds ZERO = new Seconds(Duration.ZERO);
   private final Duration duration;
 
   private Seconds(final Duration duration) {
@@ -23,7 +22,7 @@ public class Seconds extends TestMeasure<Seconds> {
   public static Seconds of(final Integer minutes, final Integer seconds) {
     requireNonNull(minutes);
     requireNonNull(seconds);
-    return new Seconds(Duration.ofSeconds(minutes * 60 + seconds));
+    return new Seconds(Duration.ofSeconds(minutes * 60 + (long) seconds));
   }
 
   @Override
