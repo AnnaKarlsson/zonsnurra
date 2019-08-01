@@ -19,9 +19,9 @@ public class BikePulseCalculatorTest {
     given_pulse(176);
     when_calculate_pulse();
     assert_zone_is_between(1, Pulse.of(0), Pulse.of(135));
-    assert_zone_is_between(2, Pulse.of(135), Pulse.of(149));
+    assert_zone_is_between(2, Pulse.of(136), Pulse.of(149));
     assert_zone_is_between(3, Pulse.of(150), Pulse.of(155));
-    assert_zone_is_between(4, Pulse.of(157), Pulse.of(166));
+    assert_zone_is_between(4, Pulse.of(156), Pulse.of(166));
     assert_zone_is_between(5, Pulse.of(167), Pulse.of(171));
     assert_zone_is_between(6, Pulse.of(172), Pulse.of(177));
   }
