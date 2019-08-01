@@ -14,11 +14,11 @@ public class RunningTimeCalculatorTest {
   public void test() {
     given_time(4, 51);
     when_calculate_time();
-    assert_zone_is_between(1, time(0, 0), time(6, 34));
-    assert_zone_is_between(2, time(5, 48), time(6, 34));
-    assert_zone_is_between(3, time(5, 24), time(5, 45));
-    assert_zone_is_between(4, time(5, 9), time(5, 21));
-    assert_zone_is_between(5, time(4, 56), time(5, 6));
+    assert_zone_is_between(1, time(6, 35), time(6, 52));
+    assert_zone_is_between(2, time(5, 46), time(6, 34));
+    assert_zone_is_between(3, time(5, 22), time(5, 45));
+    assert_zone_is_between(4, time(5, 7), time(5, 21));
+    assert_zone_is_between(5, time(4, 54), time(5, 6));
     assert_zone_is_between(6, time(4, 35), time(4, 53));
   }
 

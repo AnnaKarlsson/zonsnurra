@@ -18,11 +18,11 @@ public class SwimmingCalculatorTest {
   public void test() {
     given_time(1, 55);
     when_calculate_time();
-    assert_zone_is_between(1, time(0, 0), time(2, 28));
+    assert_zone_is_between(1, time(2, 29), time(2, 35));
     assert_zone_is_between(2, time(2, 11), time(2, 28));
     assert_zone_is_between(3, time(2, 2), time(2, 10));
     assert_zone_is_between(4, time(1, 56), time(2, 1));
-    assert_zone_is_between(5, time(1, 52), time(1, 55));
+    assert_zone_is_between(5, time(1, 51), time(1, 55));
     assert_zone_is_between(6, time(1, 43), time(1, 50));
   }
 

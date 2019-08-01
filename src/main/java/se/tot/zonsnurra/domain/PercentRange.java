@@ -32,4 +32,8 @@ public class PercentRange {
     return fkn.apply(high);
   }
 
+  public <T extends TestMeasure> T low(final Function<Percent, T> fkn) {
+    return fkn.apply(low);
+  }
+
 }

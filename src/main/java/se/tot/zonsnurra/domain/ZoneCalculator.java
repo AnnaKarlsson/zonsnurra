@@ -12,9 +12,7 @@ public abstract class ZoneCalculator<T extends TestMeasure<T>> {
   public ZoneResult<T> calc(final T measure) {
     final List<Range<T>> zones;
     if (measure instanceof Seconds) {
-      zones = percentRangeStream()
-          .map(pr -> pr.toRange(calcRange(measure)))
-          .collect(toList());
+      zones = time(measure);
     } else {
       zones = pulseAndWatt(measure);
     }
@@ -35,6 +33,30 @@ public abstract class ZoneCalculator<T extends TestMeasure<T>> {
         zones.add(new Range<>(measure.zero(), highZones.get(0)));
       } else {
         zones.add(new Range<>(highZones.get(i - 1).increment(), highZones.get(i)));
+      }
+
+    }
+    return zones;
+  }
+
+  private List<Range<T>> time(final T measure) {
+    final List<T> lowZones = percentRangeStream()
+        .map(pr -> pr.low(calcRange(measure)))
+        .collect(toList());
+
+    final List<T> highZones = percentRangeStream()
+        .map(pr -> pr.high(calcRange(measure)))
+        .collect(toList());
+
+    final List<Range<T>> zones = new ArrayList<>();
+
+    for (int i = 0; i < highZones.size(); i++) {
+      if (i == 0) {
+        zones.add(new Range<>(highZones.get(i + 1).increment(), highZones.get(0)));
+      } else if (i == highZones.size() - 1) {
+        zones.add(new Range<>(lowZones.get(i), highZones.get(i)));
+      } else {
+        zones.add(new Range<>(highZones.get(i + 1).increment(), highZones.get(i)));
       }
 
     }

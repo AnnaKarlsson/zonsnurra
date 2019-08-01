@@ -12,7 +12,7 @@ public class RunningPulseCalculator extends ZoneCalculator<Pulse> {
 
   private static final List<PercentRange> PERCENT_OF_PULSE = Arrays.asList(
       PercentRange.of(0, 85),
-      PercentRange.of(85, 89),
+      PercentRange.of(86, 89),
       PercentRange.of(90, 94),
       PercentRange.of(95, 99),
       PercentRange.of(100, 102),

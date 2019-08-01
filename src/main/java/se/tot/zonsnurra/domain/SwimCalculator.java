@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 public class SwimCalculator extends ZoneCalculator<Seconds> {
 
   private static final List<PercentRange> PERCENT_OF_TIME = Arrays.asList(
-      PercentRange.of(0, 129),
+      PercentRange.of(130, 135),
       PercentRange.of(114, 129),
       PercentRange.of(106, 113),
       PercentRange.of(101, 105),
