@@ -6,6 +6,7 @@ import java.util.Objects;
 import static java.util.Objects.requireNonNull;
 
 public class Watt extends TestMeasure<Watt> {
+
   public static final Watt ZERO = Watt.of(0);
 
   private final Integer value;
@@ -37,6 +38,16 @@ public class Watt extends TestMeasure<Watt> {
     }
     final Watt watt = (Watt) o;
     return Objects.equals(value, watt.value);
+  }
+
+  @Override
+  public Watt increment() {
+    return new Watt(value + 1);
+  }
+
+  @Override
+  public Watt zero() {
+    return ZERO;
   }
 
   public BigDecimal toBigDecimal() {

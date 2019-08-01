@@ -5,6 +5,9 @@ import java.math.RoundingMode;
 
 public abstract class TestMeasure<T> implements Comparable<T> {
 
+  public abstract T increment();
+  public abstract T zero();
+
   abstract BigDecimal toBigDecimal();
 
   public Integer toInteger(){

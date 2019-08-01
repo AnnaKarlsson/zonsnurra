@@ -7,6 +7,8 @@ import static java.util.Objects.requireNonNull;
 
 public class Pulse extends TestMeasure<Pulse> {
 
+  private static final Pulse ZERO = new Pulse(0);
+
   private final Integer value;
 
   private Pulse(final Integer value) {
@@ -36,6 +38,16 @@ public class Pulse extends TestMeasure<Pulse> {
     }
     final Pulse pulse = (Pulse) o;
     return value.equals(pulse.value);
+  }
+
+  @Override
+  public Pulse increment() {
+    return new Pulse(value + 1);
+  }
+
+  @Override
+  public Pulse zero() {
+    return ZERO;
   }
 
   @Override

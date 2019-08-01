@@ -6,7 +6,9 @@ import java.util.Objects;
 
 import static java.util.Objects.requireNonNull;
 
-public class Seconds extends TestMeasure<Seconds> {
+public final class Seconds extends TestMeasure<Seconds> {
+
+  private static final Seconds ZERO = Seconds.ofSeconds(0L);
 
   private final Duration duration;
 
@@ -26,15 +28,26 @@ public class Seconds extends TestMeasure<Seconds> {
   }
 
   @Override
+  public Seconds increment() {
+    return new Seconds(duration.plusSeconds(1));
+  }
+
+  @Override
+  public Seconds zero() {
+    return ZERO;
+  }
+
+  @Override
   public BigDecimal toBigDecimal() {
     return new BigDecimal(duration.getSeconds());
   }
 
   @Override
   public String jsonValue() {
-    return String.format("%02d:%02d",
-        duration.getSeconds() / 60,
-        duration.getSeconds() % 60);
+    if (this.equals(ZERO)) {
+      return "";
+    }
+    return toString();
   }
 
   public Seconds calc(final Percent p) {
@@ -67,6 +80,8 @@ public class Seconds extends TestMeasure<Seconds> {
 
   @Override
   public String toString() {
-    return duration.getSeconds() + "s";
+    return String.format("%02d:%02d",
+        duration.getSeconds() / 60,
+        duration.getSeconds() % 60);
   }
 }

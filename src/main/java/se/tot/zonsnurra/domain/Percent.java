@@ -3,9 +3,8 @@ package se.tot.zonsnurra.domain;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class Percent extends TestMeasure<Percent> {
+public class Percent {
 
-  public static final Percent ZERO = new Percent(0);
   public static final Percent PERCENT_95 = of(95);
   public static final Percent PERCENT_105 = of(105);
 
@@ -22,19 +21,12 @@ public class Percent extends TestMeasure<Percent> {
     return new Percent(value);
   }
 
-  @Override
   public int compareTo(final Percent o) {
     return value.compareTo(o.value);
   }
 
-  @Override
   public BigDecimal toBigDecimal() {
     return BigDecimal.valueOf(percent());
-  }
-
-  @Override
-  public String jsonValue() {
-    return String.valueOf(value);
   }
 
   public BigDecimal multiply(final BigDecimal number) {
