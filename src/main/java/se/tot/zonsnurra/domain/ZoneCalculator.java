@@ -11,14 +11,17 @@ public abstract class ZoneCalculator<T extends TestMeasure<T>> {
 
   public ZoneResult<T> calc(final T measure) {
     final List<Range<T>> zones;
+    final PercentRange sweetSpot;
     if (measure instanceof Seconds) {
       zones = time(measure);
+      sweetSpot = PercentRange.SWEET_SPOT_TIME;
     } else {
       zones = pulseAndWatt(measure);
+      sweetSpot = PercentRange.SWEET_SPOT_DEFAULT;
     }
 
-    final Range<T> sweetSpot = PercentRange.SWEET_SPOT.toRange(calcRange(measure));
-    return ZoneResult.of6ZonesWith(zones, sweetSpot);
+    final Range<T> sweetSpotRange = sweetSpot.toRange(calcRange(measure));
+    return ZoneResult.of6ZonesWith(zones, sweetSpotRange);
   }
 
   private List<Range<T>> pulseAndWatt(final T measure) {

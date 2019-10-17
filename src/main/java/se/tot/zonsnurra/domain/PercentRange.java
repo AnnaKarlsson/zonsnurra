@@ -6,11 +6,12 @@ import static java.util.Objects.requireNonNull;
 
 public class PercentRange {
 
-  public static final PercentRange SWEET_SPOT = new PercentRange(Percent.of(87), Percent.of(93));
+  static final PercentRange SWEET_SPOT_TIME = new PercentRange(Percent.of(102), Percent.of(112));
+  static final PercentRange SWEET_SPOT_DEFAULT = new PercentRange(Percent.of(91), Percent.of(98));
   private final Percent low;
   private final Percent high;
 
-  protected PercentRange(final Percent low, final Percent high) {
+  private PercentRange(final Percent low, final Percent high) {
     this.low = requireNonNull(low);
     this.high = requireNonNull(high);
     if (low.compareTo(high) > 0) {
