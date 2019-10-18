@@ -18,6 +18,8 @@ public class SwimCalculator extends ZoneCalculator<Seconds> {
       PercentRange.of(97, 100),
       PercentRange.of(90, 96));
 
+  private static final PercentRange PERCENT_SWEET_SPOT = PercentRange.of(105,108);
+
   @Override
   protected Function<Percent, Seconds> calcRange(final Seconds measure) {
     return p -> Seconds.ofSeconds(calc(measure, p));
@@ -30,6 +32,11 @@ public class SwimCalculator extends ZoneCalculator<Seconds> {
   @Override
   protected Stream<PercentRange> percentRangeStream() {
     return PERCENT_OF_TIME.stream();
+  }
+
+  @Override
+  protected PercentRange sweetSpot() {
+    return PERCENT_SWEET_SPOT;
   }
 
 }

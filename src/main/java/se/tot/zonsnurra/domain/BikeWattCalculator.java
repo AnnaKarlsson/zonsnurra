@@ -20,6 +20,8 @@ public class BikeWattCalculator extends ZoneCalculator<Watt> {
       PercentRange.of(105, 120),
       PercentRange.of(120, 200));
 
+  private static final PercentRange PERCENT_SWEET_SPOT = PercentRange.of(88,94);
+
   @Override
   protected Function<Percent, Watt> calcRange(final Watt measure) {
     return p -> Watt.of(calc(measure, p));
@@ -32,5 +34,10 @@ public class BikeWattCalculator extends ZoneCalculator<Watt> {
   @Override
   protected Stream<PercentRange> percentRangeStream() {
     return PERCENT_RANGES.stream();
+  }
+
+  @Override
+  protected PercentRange sweetSpot() {
+    return PERCENT_SWEET_SPOT;
   }
 }

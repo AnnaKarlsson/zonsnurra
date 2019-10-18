@@ -20,6 +20,8 @@ public class BikePulseCalculator extends ZoneCalculator<Pulse> {
       PercentRange.of(100, 102),
       PercentRange.of(103, 106));
 
+  private static final PercentRange PERCENT_SWEET_SPOT = PercentRange.of(92,96);
+
   @Override
   protected Function<Percent, Pulse> calcRange(final Pulse measure) {
     return p -> {
@@ -33,6 +35,11 @@ public class BikePulseCalculator extends ZoneCalculator<Pulse> {
   @Override
   protected Stream<PercentRange> percentRangeStream() {
     return PERCENT_OF_PULSE.stream();
+  }
+
+  @Override
+  protected PercentRange sweetSpot() {
+    return PERCENT_SWEET_SPOT;
   }
 
 }

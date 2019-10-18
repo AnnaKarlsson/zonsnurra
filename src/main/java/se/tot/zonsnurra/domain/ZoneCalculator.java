@@ -11,16 +11,13 @@ public abstract class ZoneCalculator<T extends TestMeasure<T>> {
 
   public ZoneResult<T> calc(final T measure) {
     final List<Range<T>> zones;
-    final PercentRange sweetSpot;
     if (measure instanceof Seconds) {
       zones = time(measure);
-      sweetSpot = PercentRange.SWEET_SPOT_TIME;
     } else {
       zones = pulseAndWatt(measure);
-      sweetSpot = PercentRange.SWEET_SPOT_DEFAULT;
     }
 
-    final Range<T> sweetSpotRange = sweetSpot.toRange(calcRange(measure));
+    final Range<T> sweetSpotRange = sweetSpot().toRange(calcRange(measure));
     return ZoneResult.of6ZonesWith(zones, sweetSpotRange);
   }
 
@@ -37,7 +34,6 @@ public abstract class ZoneCalculator<T extends TestMeasure<T>> {
       } else {
         zones.add(new Range<>(highZones.get(i - 1).increment(), highZones.get(i)));
       }
-
     }
     return zones;
   }
@@ -69,5 +65,7 @@ public abstract class ZoneCalculator<T extends TestMeasure<T>> {
   protected abstract Function<Percent, T> calcRange(final T measure);
 
   protected abstract Stream<PercentRange> percentRangeStream();
+
+  protected abstract PercentRange sweetSpot();
 
 }

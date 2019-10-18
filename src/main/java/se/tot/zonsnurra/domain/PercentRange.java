@@ -6,7 +6,7 @@ import static java.util.Objects.requireNonNull;
 
 public class PercentRange {
 
-  static final PercentRange SWEET_SPOT_TIME = new PercentRange(Percent.of(102), Percent.of(112));
+  static final PercentRange SWEET_SPOT_TIME = new PercentRange(Percent.of(105), Percent.of(108));
   static final PercentRange SWEET_SPOT_DEFAULT = new PercentRange(Percent.of(91), Percent.of(98));
   private final Percent low;
   private final Percent high;

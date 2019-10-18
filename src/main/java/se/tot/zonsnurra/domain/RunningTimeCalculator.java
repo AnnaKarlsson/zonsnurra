@@ -19,6 +19,8 @@ public class RunningTimeCalculator extends ZoneCalculator<Seconds> {
       PercentRange.of(97, 100),
       PercentRange.of(90, 96));
 
+  private static final PercentRange PERCENT_SWEET_SPOT = PercentRange.of(105,108);
+
   private static Seconds secondsOf(final BigDecimal timePlus5percentInSeconds, final Percent p) {
     final Long result = p.multiplyAndRoundToLong(timePlus5percentInSeconds);
     return Seconds.ofSeconds(result);
@@ -32,6 +34,11 @@ public class RunningTimeCalculator extends ZoneCalculator<Seconds> {
   @Override
   protected Stream<PercentRange> percentRangeStream() {
     return PERCENT_OF_TIME.stream();
+  }
+
+  @Override
+  protected PercentRange sweetSpot() {
+    return PERCENT_SWEET_SPOT;
   }
 }
 
