@@ -1,8 +1,12 @@
 package se.tot.zonsnurra;
 
-import org.junit.Assert;
-import org.junit.Test;
-import se.tot.zonsnurra.domain.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import se.tot.zonsnurra.domain.Pulse;
+import se.tot.zonsnurra.domain.Range;
+import se.tot.zonsnurra.domain.RunningPulseCalculator;
+import se.tot.zonsnurra.domain.TestMeasure;
+import se.tot.zonsnurra.domain.ZoneResult;
 
 public class RunningPulseCalculatorTest {
 
@@ -24,7 +28,7 @@ public class RunningPulseCalculatorTest {
 
    private <T extends TestMeasure> void assert_zone_is_between(final int zoneNbr, final T low, final T high) {
     final Range zoneRange = result.get(zoneNbr);
-    Assert.assertEquals(Range.of(low, high), zoneRange);
+    Assertions.assertEquals(Range.of(low, high), zoneRange);
   }
 
   private void when_calculate_pulse() {

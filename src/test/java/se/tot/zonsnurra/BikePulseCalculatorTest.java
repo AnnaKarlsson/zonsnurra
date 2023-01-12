@@ -1,7 +1,7 @@
 package se.tot.zonsnurra;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import se.tot.zonsnurra.domain.BikePulseCalculator;
 import se.tot.zonsnurra.domain.Pulse;
 import se.tot.zonsnurra.domain.Range;
@@ -28,7 +28,7 @@ public class BikePulseCalculatorTest {
 
    private <T extends TestMeasure> void assert_zone_is_between(final int zoneNbr, final T low, final T high) {
     final Range zoneRange = result.get(zoneNbr);
-    Assert.assertEquals(Range.of(low, high), zoneRange);
+    Assertions.assertEquals(Range.of(low, high), zoneRange);
   }
 
   private void when_calculate_pulse() {
